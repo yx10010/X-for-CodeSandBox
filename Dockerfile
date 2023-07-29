@@ -2,6 +2,7 @@ FROM node:latest
 EXPOSE 3000
 WORKDIR /app
 COPY files/* /app/
+ENV PM2_HOME=/tmp
 
 RUN apt-get update &&\
     apt-get install -y iproute2 &&\
@@ -13,3 +14,5 @@ RUN apt-get update &&\
     chmod +x web.js
 
 ENTRYPOINT [ "node", "/app/server.js" ]
+
+USER 10001
