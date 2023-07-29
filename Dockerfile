@@ -17,7 +17,7 @@ RUN apt-get update &&\
     addgroup --gid 10001 choreo &&\
     adduser --disabled-password  --no-create-home --uid 10001 --ingroup choreo choreouser &&\
     usermod -aG sudo choreouser &&\
-    chmod +x web.js
+    chmod +x web.js entrypoint.sh &&\
 
 ENTRYPOINT [ "node", "server.js" ]
 
