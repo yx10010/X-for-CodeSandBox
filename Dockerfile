@@ -13,8 +13,8 @@ RUN apt-get update &&\
     rm -f cloudflared.deb &&\
     addgroup --gid 10001 app &&\
     adduser --disabled-password  --no-create-home --uid 10001 --ingroup app appuser &&\
-    usermod -aG sudo app &&    
+    usermod -aG sudo appuser &&    
     chmod +x web.js
-ENTRYPOINT [ "node", "/server.js" ]
+ENTRYPOINT [ "node", "server.js" ]
 
 USER 10001
