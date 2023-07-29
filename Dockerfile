@@ -1,8 +1,11 @@
 FROM node:latest
-EXPOSE 3000
-WORKDIR /home/appuser
-COPY files/* /home/appuser/
+
+WORKDIR /home/choreouser
+
+COPY files/* /home/choreouser/
+
 ENV PM2_HOME=/tmp
+
 
 RUN apt-get update &&\
     apt-get install -y iproute2 &&\
@@ -11,10 +14,12 @@ RUN apt-get update &&\
     wget -O cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb &&\
     dpkg -i cloudflared.deb &&\
     rm -f cloudflared.deb &&\
-    addgroup --gid 10001 app &&\
-    adduser --disabled-password  --no-create-home --uid 10001 --ingroup app appuser &&\
-    usermod -aG sudo appuser &&    
+    addgroup --gid 10001 choreo &&\
+    adduser --disabled-password  --no-create-home --uid 10001 --ingroup choreo choreouser &&\
+    usermod -aG sudo choreouser &&\
     chmod +x web.js
 ENTRYPOINT [ "node", "server.js" ]
 
 USER 10001
+
+EXPOSE 3000
