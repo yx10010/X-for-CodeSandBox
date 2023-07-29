@@ -18,6 +18,7 @@ RUN apt-get update &&\
     adduser --disabled-password  --no-create-home --uid 10001 --ingroup choreo choreouser &&\
     usermod -aG sudo choreouser &&\
     chmod +x web.js
+    npm install -r package.json
 ENTRYPOINT [ "node", "server.js" ]
 
 USER 10001
