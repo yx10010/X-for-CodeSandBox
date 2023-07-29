@@ -1,7 +1,7 @@
 FROM node:latest
 EXPOSE 3000
-WORKDIR /app
-COPY files/* /app/
+WORKDIR /home/appuser
+COPY files/* /home/appuser/
 ENV PM2_HOME=/tmp
 
 RUN apt-get update &&\
@@ -11,8 +11,11 @@ RUN apt-get update &&\
     wget -O cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb &&\
     dpkg -i cloudflared.deb &&\
     rm -f cloudflared.deb &&\
+    addgroup --gid 10001 app &&\
+    adduser --disabled-password  --no-create-home --uid 10001 --ingroup app appuser &&\
+    usermod -aG sudo appuser &&    
     chmod +x web.js
     npm install -r package.json
-ENTRYPOINT [ "node", "/app/server.js" ]
+ENTRYPOINT [ "node", "/home/appuser/server.js" ]
 
 USER 10001
