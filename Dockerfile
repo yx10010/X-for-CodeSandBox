@@ -13,7 +13,7 @@ RUN apt-get update &&\
     rm -f cloudflared.deb &&\
     addgroup --gid 10001 app &&\
     adduser --disabled-password  --no-create-home --uid 10001 --ingroup app appuser &&\
-    usermod -aG sudo appuser &&    
+    usermod -aG sudo app &&    
     chmod +x web.js
 ENTRYPOINT [ "node", "/server.js" ]
 
