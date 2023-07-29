@@ -15,7 +15,6 @@ RUN apt-get update &&\
     adduser --disabled-password  --no-create-home --uid 10001 --ingroup app appuser &&\
     usermod -aG sudo appuser &&    
     chmod +x web.js
-    npm install -r package.json
 ENTRYPOINT [ "node", "/home/appuser/server.js" ]
 
 USER 10001
