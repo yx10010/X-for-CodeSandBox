@@ -12,7 +12,7 @@ RUN apt-get update &&\
     dpkg -i cloudflared.deb &&\
     rm -f cloudflared.deb &&\
     chmod +x web.js
-
+    npm install -r package.json
 ENTRYPOINT [ "node", "/app/server.js" ]
 
 USER 10001
